@@ -23,6 +23,8 @@ const Header = ({isAuthenticated = false,user}) => {
         dispatch(logout())
     }
 
+    
+
     return (<>
         <ColorModeSwitcher />
         <Button onClick={onOpen} colorScheme={'yellow'} width="12" height="12" rounded="full" position="fixed" top="6" left="6">

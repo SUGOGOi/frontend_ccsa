@@ -23,23 +23,9 @@ import {
 import { RiDeleteBin7Fill } from 'react-icons/ri'
 import { fileUploadCss } from '../Auth/Register'
 
-const Profile = () => {
-    const user = {
-        name: "Sumsum Gogoi",
-        email: "sumsumgogoi51@gmail.com",
-        createdAt: String(new Date().toISOString()),
-        role: "user",
-        subscription: {
-            status: undefined,
-        },
-        playlist: [
-            {
-                course: "fgsfsdf",
-                poster: "https://images.pexels.com/photos/1925536/pexels-photo-1925536.jpeg?auto=compress&cs=tinysrgb&w=600"
-            }
-        ]
+const Profile = ({user}) => {
 
-    }
+   
 
     const removeFromPlaylistHandler = (id) => {
         console.log(id);
@@ -62,7 +48,7 @@ const Profile = () => {
             spacing={["8", "16"]}
         >
             <VStack>
-                <Avatar src="https://avatars.githubusercontent.com/u/104547345?s=400&u=c3ff82d21c3f3f53f77b2ad72117077b546ccc78&v=4" boxSize={["40", "48"]} />
+                <Avatar src={user.avatar.url} boxSize={["40", "48"]} />
 
                 <Button onClick={onOpen} colorScheme={"yellow"} variant={"ghost"} >Change Photo</Button>
             </VStack>
@@ -84,7 +70,7 @@ const Profile = () => {
                         <HStack>
                             <Text children="Subscription" fontWeight={"bold"} />
                             {
-                                user.subscription.status === "active" ? (
+                                user.subscription && user.subscription.status === "active" ? (
                                     <Button color={"yellow.500"} varient="unstyled" >Cancel Subscription</Button>
 
                                 ) : (
