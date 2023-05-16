@@ -75,7 +75,7 @@ function App() {
 
         <Route path="/profile" element={<ProtectedRoute isAuthenticated={isAuthenticated} redirect={"/login"}  ><Profile user={user} /></ProtectedRoute>} />
         <Route path="/changepassword" element={ <ProtectedRoute  isAuthenticated={isAuthenticated}  > <ChangePassword /></ProtectedRoute> } />
-        <Route path="/updateprofile" element={  <ProtectedRoute isAuthenticated={isAuthenticated} > <UpdateProfile /></ProtectedRoute>}/>
+        <Route path="/updateprofile" element={  <ProtectedRoute isAuthenticated={isAuthenticated} > <UpdateProfile  user={user} /></ProtectedRoute>}/>
 
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/resetpassword/:token" element={<ResetPassword />} />

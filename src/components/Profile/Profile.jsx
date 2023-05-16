@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from "react-router-dom"
 import {
     Avatar,
     Button,
@@ -22,19 +22,54 @@ import {
 } from '@chakra-ui/react'
 import { RiDeleteBin7Fill } from 'react-icons/ri'
 import { fileUploadCss } from '../Auth/Register'
+import { updateProfilePicture } from '../../redux/action/profileAction'
+import { useDispatch, useSelector } from 'react-redux'
+import { loaduser } from '../../redux/action/userAction'
+import toast,{Toaster} from "react-hot-toast"
+
 
 const Profile = ({user}) => {
 
-   
+  
 
+    
     const removeFromPlaylistHandler = (id) => {
         console.log(id);
     }
+    const dispatch = useDispatch();
+    const {error,message} = useSelector(state => state.profile);
+    const navigate = useNavigate();
 
-    const changeImageSubmitHandler = (e, image) => {
+
+
+
+
+    const changeImageSubmitHandler = async(e, image) => {
         e.preventDefault();
-        console.log(image);
+        console.log("enter")
+        
+        const myForm = new FormData();
+
+        myForm.append("file",image);
+        await dispatch(updateProfilePicture(myForm));
+
+        setTimeout(()=>{
+            dispatch(loaduser())
+        },3000)
+        
     }
+
+    useEffect(()=>{
+        if(error){
+            toast.error(error);
+            dispatch({type:"clearError"})
+        }
+
+        if(message){
+            toast.success(message);
+            dispatch({type:"clearMessage"})
+        }
+        })
 
     const { isOpen, onClose, onOpen } = useDisclosure()
 
@@ -132,6 +167,9 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
     const [imagePrev, setImagePrev] = useState("");
     const [image, setImage] = useState("");
 
+    const {loading} = useSelector(state => state.profile);
+   
+
     const changeImage = e => {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -150,6 +188,7 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
         setImage("");
 
     }
+
     return (
         <Modal isOpen={isOpen} onClose={closeHandler} >
             <ModalOverlay backdropFilter={"blur(10px)"} />
@@ -158,7 +197,7 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
                 <ModalCloseButton />
                 <ModalBody>
                     <Container>
-                        <form onSubmit={(e) => changeImageSubmitHandler(e, image)} >
+                        <form onSubmit={(e) => changeImageSubmitHandler(e, image)}>
                             <VStack spacing="8" mt="4">
                                 {
                                     imagePrev && <Avatar src={imagePrev} boxSize={"48"} />
@@ -166,13 +205,13 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
                                 <Input type={"file"} css={{ "&::file-selector-button": fileUploadCss }}
                                     onChange={changeImage}
                                 />
-                                <Button w="full" colorScheme={"yellow"} type="submit" >Change</Button>
+                                <Button w="full" isLoading={loading} colorScheme={"yellow"} type="submit" >Change</Button>
                             </VStack>
                         </form>
                     </Container>
                 </ModalBody>
                 <ModalFooter>
-                    <Button mr="3" onClick={closeHandler} >Cancel</Button>
+                    <Button mr="3" onClick={closeHandler}  >Cancel</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>

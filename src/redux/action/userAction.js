@@ -38,7 +38,7 @@ export  const register = (formdata) => async(dispatch) =>{
 }
 
 
- export  const loaduser = (email,password) => async(dispatch) =>{
+ export  const loaduser = () => async(dispatch) =>{
     try {
         dispatch({type:"loadUserRequest"});
 
@@ -59,6 +59,25 @@ export  const register = (formdata) => async(dispatch) =>{
 
 
 export  const logout = () => async(dispatch) =>{
+    try {
+        dispatch({type:"logoutRequest"});
+
+    const {data} = await axios.get(`${server}/logout`,{
+        headers:{
+            "Content-type":"application/json",
+        },
+        withCredentials:true,
+    })
+
+
+    dispatch({type:"logoutSuccess",payload:data.message})
+    } catch (error) {
+        dispatch({type:"logoutFail",payload:error.response.data.message})
+        
+    }
+}
+
+export  const forgetpassword = () => async(dispatch) =>{
     try {
         dispatch({type:"logoutRequest"});
 

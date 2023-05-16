@@ -34,9 +34,7 @@ export const userReducer = createReducer({},{
         state.isAuthenticated = false;
         state.error = action.payload;
     },
-
-
-
+    //logout 
     logoutRequest:(state) => {
         state.loading= true;
 
@@ -53,6 +51,8 @@ export const userReducer = createReducer({},{
         state.error = action.payload;
     },
 
+
+    //loaduser
     loadUserRequest:(state) => {
         state.loading= true;
 
@@ -79,4 +79,83 @@ export const userReducer = createReducer({},{
 
     },
 
+})
+
+export const profileReducer = createReducer ({},{
+    updateProfileRequest:(state) => {
+        state.loading= true;
+    },
+    updateProfileSuccess:(state,action) => {
+        state.loading= false;
+        state.message = action.payload.message;
+    },
+    updateProfileFail:(state,action) => {
+        state.loading= false;
+        state.error = action.payload;
+    },
+
+    //update profile picture
+    updateProfilePictureRequest:(state) => {
+        state.loading= true;
+
+    },
+    updateProfilePictureSuccess:(state,action) => {
+        state.loading= false;
+        state.message = action.payload.message;
+    },
+    updateProfilePictureFail:(state,action) => {
+        state.loading= false;
+        state.error = action.payload;
+    },
+
+        //change password reducer
+        changePasswordRequest:(state) => {
+            state.loading= true;
+    
+        },
+        changePasswordSuccess:(state,action) => {
+            state.loading= false;
+            state.message = action.payload.message;
+        },
+        changePasswordFail:(state,action) => {
+            state.loading= false;
+            state.error = action.payload;
+        },
+        
+        //forget password reducer
+         foegetPasswordRequest:(state) => {
+            state.loading= true;
+            
+        },
+        foegetPasswordSuccess:(state,action) => {
+            state.loading= false;
+            state.message = action.payload.message;
+        },
+        foegetPasswordFail:(state,action) => {
+            state.loading= false;
+            state.error = action.payload;
+        },
+
+        //reset password reducer
+        resetPasswordRequest:(state) => {
+            state.loading= true;
+            
+        },
+        resetPasswordSuccess:(state,action) => {
+            state.loading= false;
+            state.message = action.payload.message;
+        },
+        resetPasswordFail:(state,action) => {
+            state.loading= false;
+            state.error = action.payload;
+        },
+
+    clearError:(state) =>{
+        state.error = null
+
+    },
+    clearMessage:(state) =>{
+        state.message = null
+
+    },
 })

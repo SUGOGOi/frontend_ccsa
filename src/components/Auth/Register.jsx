@@ -47,8 +47,6 @@ const Register = () => {
  
         myForm.append("file",image)
 
-        
-
         dispatch(register(myForm));
     }
 
