@@ -123,15 +123,15 @@ export const profileReducer = createReducer ({},{
         },
         
         //forget password reducer
-         foegetPasswordRequest:(state) => {
+         forgetPasswordRequest:(state) => {
             state.loading= true;
             
         },
-        foegetPasswordSuccess:(state,action) => {
+        forgetPasswordSuccess:(state,action) => {
             state.loading= false;
             state.message = action.payload.message;
         },
-        foegetPasswordFail:(state,action) => {
+        forgetPasswordFail:(state,action) => {
             state.loading= false;
             state.error = action.payload;
         },
@@ -150,6 +150,42 @@ export const profileReducer = createReducer ({},{
             state.error = action.payload;
         },
 
+        removeFromPlaylistReuest:(state) =>{
+            state.loading = true;
+        },
+        removeFromPlaylistSuccess:(state,action) =>{
+            state.loading = false;
+            state.message = action.payload;
+        },
+        removeFromPlaylistFail:(state,action) =>{
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+    clearError:(state) =>{
+        state.error = null
+
+    },
+    clearMessage:(state) =>{
+        state.message = null
+
+    },
+})
+
+
+export const subscriptionReducer = createReducer({},{
+
+    buySubscriptionRequest: state =>{
+        state.loading = true;
+    },
+    buySubscriptionSuccess: (state,action) =>{
+        state.loading = false;
+        state.subscriptionId = action.payload;
+    },
+    buySubscriptionFail: (state,action) =>{
+        state.loading = false;
+        state.error = action.payload;
+    },
     clearError:(state) =>{
         state.error = null
 

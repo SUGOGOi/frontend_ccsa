@@ -43,9 +43,6 @@ export  const register = (formdata) => async(dispatch) =>{
         dispatch({type:"loadUserRequest"});
 
     const {data} = await axios.get(`${server}/me`,{
-        headers:{
-            "Content-type":"application/json",
-        },
         withCredentials:true,
     })
 
@@ -77,21 +74,17 @@ export  const logout = () => async(dispatch) =>{
     }
 }
 
-export  const forgetpassword = () => async(dispatch) =>{
+export  const buySubscription = () => async(dispatch) =>{
     try {
-        dispatch({type:"logoutRequest"});
+        dispatch({type:"buySubscriptionRequest"});
 
-    const {data} = await axios.get(`${server}/logout`,{
-        headers:{
-            "Content-type":"application/json",
-        },
+    const {data} = await axios.get(`${server}/subscribe`,{
         withCredentials:true,
     })
-
-
-    dispatch({type:"logoutSuccess",payload:data.message})
+    dispatch({type:"buySubscriptionSuccess",payload:data.subscriptionId})
     } catch (error) {
-        dispatch({type:"logoutFail",payload:error.response.data.message})
+        dispatch({type:"buySubscriptionFail",payload:error.response.data.message})
         
     }
 }
+

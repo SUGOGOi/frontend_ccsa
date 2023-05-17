@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect ,useState} from 'react'
 import { Container, Heading, HStack, Input, Button, Text, Stack, VStack, Image } from "@chakra-ui/react"
-import { useState } from 'react'
 import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllCourses } from '../../redux/action/courseAction'
+import { toast } from 'react-hot-toast'
+import { addToPlaylist } from '../../redux/action/profileAction'
+import { loaduser } from '../../redux/action/userAction';
+
 // import "../Home/Home.css"
 
-const Course = ({ views, title, imageSrc, id, addToPlaylistHandler, creator, description, lectureCount }) => {
+const Course = ({ views, title, imageSrc, id,loading, addToPlaylistHandler, creator, description, lectureCount }) => {
+
     return (
 
         <VStack className="course" alignItems={["center", "flex-start"]}>
@@ -22,7 +28,7 @@ const Course = ({ views, title, imageSrc, id, addToPlaylistHandler, creator, des
                 <Link to={`/course/${id}`}>
                     <Button colorScheme={"yellow"}>Watch Now!</Button>
                 </Link>
-                <Button colorScheme={"yellow"} variant={"ghost"} onClick={() => addToPlaylistHandler(id)}>Add to Playlist</Button>
+                <Button isLoading={loading} colorScheme={"yellow"} variant={"ghost"} onClick={() => addToPlaylistHandler(id)}>Add to Playlist</Button>
 
             </Stack>
 
@@ -35,14 +41,39 @@ const Courses = () => {
 
     const [keyword, setkeyword] = useState("");
     const [category, setCategory] = useState("");
+    const {loading,courses,error,message} = useSelector(state => state.course)
+    const dispatch = useDispatch();
 
-    const addToPlaylistHandler = () => {
-        console.log("Added to playlist")
+    const addToPlaylistHandler = async(courseId) => {
+        // console.log("Added to playlist",courseId)
+        await dispatch(addToPlaylist(courseId));
+        setTimeout(()=>{
+            dispatch(loaduser());
+        },3000)
     }
 
     const categories = [
-        "Web Development", "Android Development", "Data Structures & Algorithems", "AI", "Data Science"
+        "Web dev", "Android Development", "Data Structures & Algorithems", "AI", "Data Science"
     ]
+
+    
+    useEffect(()=>{
+        dispatch(getAllCourses(category,keyword))
+        if(error){
+            toast.error(error)
+            dispatch({type:"clearError"});
+        }
+
+        if(message){
+            toast.success(message)
+            dispatch({type:"clearMessage"});
+        }
+        // if(category != ""){
+        //     setCategory("")
+        // }
+
+    },[dispatch,category,keyword,error,message])
+
 
     return (
         <Container minH={"95vh"} maxW="container.lg" paddingY={"8"}>
@@ -67,16 +98,25 @@ const Courses = () => {
                 justifyContent={["flex-start", "space-evenly"]}
                 alignItems={["center", "flex-start"]}
             >
-                <Course
-                    title={"Sample"}
-                    description={"sample"}
-                    views={23}
-                    imageSrc='https://images.pexels.com/photos/1925536/pexels-photo-1925536.jpeg?auto=compress&cs=tinysrgb&w=600'
-                    id={"sample"}
-                    creator={"sample"}
-                    lectureCount={10}
-                    addToPlaylistHandler={addToPlaylistHandler}
-                />
+                {
+                     
+                    courses.length > 0 ? courses.map((item)=>(
+                        <Course
+                        key={item._id}
+                        title={item.title}
+                        description={item.description}
+                        views={item.views}
+                        imageSrc={item.poster.url}
+                        id={item._id}
+                        creator={item.createdBy}
+                        lectureCount={item.numOfVideos}
+                        addToPlaylistHandler={addToPlaylistHandler}
+                        loading={loading}
+                    />  
+                    )) : <Heading mt="4" children={"Course not found"}/>
+                    
+                    
+                }
 
             </Stack>
 

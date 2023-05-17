@@ -26,23 +26,23 @@ import { updateProfilePicture } from '../../redux/action/profileAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { loaduser } from '../../redux/action/userAction'
 import toast,{Toaster} from "react-hot-toast"
+import { removeFromPlaylist } from '../../redux/action/profileAction'
 
 
 const Profile = ({user}) => {
 
-  
-
-    
-    const removeFromPlaylistHandler = (id) => {
-        console.log(id);
-    }
     const dispatch = useDispatch();
     const {error,message} = useSelector(state => state.profile);
+    const {loading} = useSelector(state => state.user);
     const navigate = useNavigate();
 
+    const removeFromPlaylistHandler = async(id) => {
+        await dispatch(removeFromPlaylist(id));
 
-
-
+        setTimeout(()=>{
+            dispatch(loaduser());
+        },3000)
+    }
 
     const changeImageSubmitHandler = async(e, image) => {
         e.preventDefault();
@@ -142,7 +142,7 @@ const Profile = ({user}) => {
                                     <Link to={`/course/${element.course}`} >
                                         <Button variant={"ghost"} colorScheme="yellow" >Watch Now</Button>
                                     </Link>
-                                    <Button onClick={() => removeFromPlaylistHandler(element.course)} >
+                                    <Button isLoading={loading} onClick={() => removeFromPlaylistHandler(element.course)} >
                                         <RiDeleteBin7Fill />
                                     </Button>
                                 </HStack>

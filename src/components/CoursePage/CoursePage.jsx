@@ -1,9 +1,12 @@
 import { Box, Grid, Heading, Text, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import introVideo from "../../assets/videos/intro.mkv"
 import "./CoursePage.css"
+import {useDispatch} from "react-redux"
+import {Navigate, useParams} from "react-router-dom"
+import { getCourseLectures } from '../../redux/action/courseAction'
 
-const CoursePage = () => {
+const CoursePage = ({user}) => {
 
     const [lectureNumber, setLectureNumber] = useState(0);
 
@@ -35,6 +38,20 @@ const CoursePage = () => {
         }
 
     ]
+    const dispatch  = useDispatch();
+    const params = useParams();
+
+
+    useEffect(()=>{
+        dispatch(getCourseLectures(params.id));
+
+
+
+    },[dispatch,params.id])
+
+    if(user.role !== "admin" && (user.subscription === undefined || user.subscription.status !== "active")){
+        return <Navigate to={"/subscribe"}  />
+    }
 
     return <Grid minH={"90vh"} templateColumns={["1fr", "3fr 1fr"]} >
         <Box >

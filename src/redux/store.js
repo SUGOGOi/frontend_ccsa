@@ -1,12 +1,14 @@
 import {configureStore} from "@reduxjs/toolkit"
-import { profileReducer, userReducer } from "./reducer/userReducer";
+import { profileReducer, subscriptionReducer, userReducer } from "./reducer/userReducer";
+import { courseReducer } from "./reducer/courseReducer";
 
 
 const store = configureStore({
     reducer:{
         user:userReducer,
-        profile:profileReducer
-
+        profile:profileReducer,
+        course:courseReducer,
+        subscription:subscriptionReducer,
     }
 })
 
