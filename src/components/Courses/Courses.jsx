@@ -26,7 +26,7 @@ const Course = ({ views, title, imageSrc, id,loading, addToPlaylistHandler, crea
             <Heading size="xs" children={`Views - ${views}`} texttransform={"uppercase"} />
             <Stack direction={["column", "row"]} alignItems="center">
                 <Link to={`/course/${id}`}>
-                    <Button colorScheme={"yellow"}>Watch Now!</Button>
+                    <Button  colorScheme={"yellow"}>Watch Now!</Button>
                 </Link>
                 <Button isLoading={loading} colorScheme={"yellow"} variant={"ghost"} onClick={() => addToPlaylistHandler(id)}>Add to Playlist</Button>
 
