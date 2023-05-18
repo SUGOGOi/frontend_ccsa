@@ -101,7 +101,7 @@ export const resetPassword = (token,password) => async(dispatch) =>{
 
 export const addToPlaylist =(_id)=> async(dispatch) =>{
     try {
-        dispatch({type:"addToPlaylistRequest"});
+        dispatch({type:"addToPlaylistRequest"}); 
 
         const {data} = await axios.post(`${server}/addtoplaylist`,{_id},
         {

@@ -88,7 +88,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={ user && user.role === "admin"}><Dashboard /></ProtectedRoute>} />
-        <Route path="/admin/createcourse" element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmi={user && user.role === "admin"}><CreateCourse /></ProtectedRoute>} />
+        <Route path="/admin/createcourse" element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={user && user.role === "admin"}><CreateCourse /></ProtectedRoute>} />
         <Route path="/admin/uploadnotes" element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={user && user.role === "admin"}> <UploadNotes /></ProtectedRoute>} />
         <Route path="/admin/courses" element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={user && user.role === "admin"}><AdminCourse /></ProtectedRoute>} />
         <Route path="/admin/notes" element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={user && user.role === "admin"}><AdminNotes /></ProtectedRoute>} />

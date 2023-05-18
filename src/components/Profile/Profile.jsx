@@ -32,8 +32,7 @@ import { removeFromPlaylist } from '../../redux/action/profileAction'
 const Profile = ({user}) => {
 
     const dispatch = useDispatch();
-    const {error,message} = useSelector(state => state.profile);
-    const {loading} = useSelector(state => state.user);
+    const {loading,error,message} = useSelector(state => state.profile);
     const navigate = useNavigate();
 
     const removeFromPlaylistHandler = async(id) => {
@@ -41,7 +40,7 @@ const Profile = ({user}) => {
 
         setTimeout(()=>{
             dispatch(loaduser());
-        },3000)
+        },1500)
     }
 
     const changeImageSubmitHandler = async(e, image) => {

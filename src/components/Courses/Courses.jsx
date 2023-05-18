@@ -49,7 +49,7 @@ const Courses = () => {
         await dispatch(addToPlaylist(courseId));
         setTimeout(()=>{
             dispatch(loaduser());
-        },3000)
+        },1500)
     }
 
     const categories = [

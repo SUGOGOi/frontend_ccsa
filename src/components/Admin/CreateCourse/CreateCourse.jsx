@@ -1,9 +1,13 @@
 import { Grid, Container, Heading, VStack, Input, Select, Image, Button } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import cursor from "../../../assets/images/cursor.png"
 import Sidebar from "../Sidebar"
 import { useState } from 'react'
 import { fileUploadCss } from '../../Auth/Register'
+import { createCourse } from '../../../redux/action/adminAction'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -18,10 +22,9 @@ const CreateCourse = () => {
     const [category, setCategory] = useState("");
     const [image, setImage] = useState("");
     const [imagePrev, setImagePrev] = useState('');
-
-
-
-
+    const dispatch = useDispatch();
+    const {loading, error, message} = useSelector(state=> state.admin);
+    const navigate = useNavigate();
 
     const categories = [
         "Web Development", "Android Development", "Data Structures & Algorithems", "AI", "Data Science"
@@ -39,10 +42,38 @@ const CreateCourse = () => {
         }
     }
 
+    const createCourseHandler = async(e) =>{
+        e.preventDefault();
+        const myForm =  new FormData();
+        myForm.append("title",title);
+        myForm.append("description",description);
+        myForm.append("createdBy",createdBy);
+        myForm.append("category",category);
+        myForm.append("file",image);
+
+        await dispatch(createCourse(myForm));
+        setTimeout(()=>{
+            navigate("/admin/courses")
+
+        },1500)
+    }
+
+    useEffect(()=>{
+        if(error){
+            toast.error(error);
+            dispatch({type:"clearError"});
+        }
+        if(message){
+            toast.success(message);
+            dispatch({type:"clearMessage"});
+        }
+    },[dispatch,error,message])
+
+
     return <Grid css={{ cursor: `url(${cursor}), default` }} minH={"100vh"} templateColumns={["1fr", "5fr 1fr"]} >
 
         <Container py="8">
-            <form>
+            <form onSubmit={createCourseHandler} >
                 <Heading textTransform={'uppercase'} children="Create Course" my="16" textAlign={["center", "left"]} />
 
                 <VStack m="auto" spacing={"8"} >
@@ -80,7 +111,7 @@ const CreateCourse = () => {
                             <Image src={imagePrev} boxSize="64" objectFit={'contain'} />
                         )}
 
-                    <Button w="full" colorScheme={"purple"} children="Create Course" type='submit' />
+                    <Button isLoading={loading} w="full" colorScheme={"purple"} children="Create Course" type='submit' />
 
                 </VStack>
             </form>

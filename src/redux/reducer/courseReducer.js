@@ -24,7 +24,7 @@ export const courseReducer = new createReducer({courses:[],lectures:[]},{
         state.error = action.payload;
     },
 
-    addToPlaylistReuest:(state) =>{
+    addToPlaylistRequest:(state) =>{
         state.loading = true;
     },
     addToPlaylistSuccess:(state,action) =>{

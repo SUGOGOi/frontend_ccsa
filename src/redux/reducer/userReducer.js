@@ -150,7 +150,7 @@ export const profileReducer = createReducer ({},{
             state.error = action.payload;
         },
 
-        removeFromPlaylistReuest:(state) =>{
+        removeFromPlaylistRequest:(state) =>{
             state.loading = true;
         },
         removeFromPlaylistSuccess:(state,action) =>{

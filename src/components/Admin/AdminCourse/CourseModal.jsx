@@ -1,9 +1,12 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Grid, Box, Heading, Stack, Text, Button, VStack, Input, ModalFooter } from '@chakra-ui/react'
 import { RiDeleteBin7Fill } from 'react-icons/ri'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { fileUploadCss } from '../../Auth/Register'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCourseLectures } from '../../../redux/action/courseAction'
+import { toast } from 'react-hot-toast'
 
-const CourseModal = ({ isOpen, onClose, id, deleteLectureHandler, courseTitle, lecturse = [1, 2, 3, 4, 5, 6, 7, 8],
+const CourseModal = ({ isOpen,lectures=[],clear, onClose, courseId, deleteLectureHandler, courseTitle,
 
     addLectureHandler
 }) => {
@@ -12,6 +15,15 @@ const CourseModal = ({ isOpen, onClose, id, deleteLectureHandler, courseTitle, l
     const [description, setDescription] = useState("");
     const [video, setVideo] = useState("");
     const [videoPrev, setVideoPrev] = useState("");
+    const dispatch = useDispatch();
+    const {  loading}  = useSelector(state=>state.admin)
+    const clearForm =() =>{
+        setTitle("");
+        setDescription("");
+        setVideo("");
+        setVideoPrev("");
+    }
+
 
     const changeVideoHandler = e => {
         const file = e.target.files[0];
@@ -32,7 +44,10 @@ const CourseModal = ({ isOpen, onClose, id, deleteLectureHandler, courseTitle, l
         setVideoPrev("");
         onClose();
     }
-
+    useEffect(()=>{
+        clearForm();
+    },[clear])
+   
 
     return (
         <Modal
@@ -58,29 +73,30 @@ const CourseModal = ({ isOpen, onClose, id, deleteLectureHandler, courseTitle, l
                                     <Heading size="sm"
                                         opacity={0.4}
                                     >
-                                        {`#${id}`}
+                                        {`${courseId}`}
                                     </Heading>
                                 </Box>
                                 <Heading size="lg" >
                                     Lectures
                                 </Heading>
                                 {
-                                    lecturse.map((item, i) => (
+                                    lectures.map((item, i) => (
                                         <VideoCard
                                             key={i}
-                                            title="React Intro"
-                                            description="why react?"
+                                            title={item.title}
+                                            description={item.description}
                                             num={i + 1}
-                                            lectureId="dfsfgs"
-                                            courseId={id}
+                                            lectureId={item._id}
+                                            courseId={courseId}
                                             deleteLectureHandler={deleteLectureHandler}
+                                            loading={loading}
                                         />
                                     ))
                                 }
                             </Box>
 
                             <Box>
-                                <form onSubmit={e => addLectureHandler(e, id, title, description, video)}>
+                                <form onSubmit={(e)=> addLectureHandler(e,courseId, title, description, video)}>
                                     <VStack spacing="4" >
                                         <Heading size="md"
                                             textTransform="uppercase "
@@ -112,7 +128,7 @@ const CourseModal = ({ isOpen, onClose, id, deleteLectureHandler, courseTitle, l
                                             )
                                         }
 
-                                        <Button w="full" colorScheme='purple' type="submit" >
+                                        <Button w="full" colorScheme='purple' type="submit" isLoading={loading} >
                                             Upload Lecture
                                         </Button>
 
@@ -139,7 +155,7 @@ const CourseModal = ({ isOpen, onClose, id, deleteLectureHandler, courseTitle, l
 
 export default CourseModal
 
-function VideoCard({ title, description, num, lecturId, courseId, deleteLectureHandler, }) {
+function VideoCard({ title, description, num, lectureId, courseId, deleteLectureHandler,loading }) {
 
     return <Stack direction={["column", "row"]} my="8" boxShadow={"0 0 10px rgba(107, 70, 193, 0.5 )"} justifyContent={["flex=start", "space-between"]} p={["4", "8"]} >
         <Box  >
@@ -147,7 +163,7 @@ function VideoCard({ title, description, num, lecturId, courseId, deleteLectureH
             <Text children={description} ></Text>
 
         </Box>
-        <Button color={'red'} onClick={() => deleteLectureHandler(courseId, lecturId)} >
+        <Button color={'red'} onClick={() => deleteLectureHandler(courseId, lectureId)} isLoading={loading} >
             <RiDeleteBin7Fill />
         </Button>
 
