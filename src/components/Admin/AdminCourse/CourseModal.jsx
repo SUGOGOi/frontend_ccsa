@@ -17,6 +17,7 @@ const CourseModal = ({ isOpen,lectures=[],clear, onClose, courseId, deleteLectur
     const [videoPrev, setVideoPrev] = useState("");
     const dispatch = useDispatch();
     const {  loading}  = useSelector(state=>state.admin)
+    
     const clearForm =() =>{
         setTitle("");
         setDescription("");

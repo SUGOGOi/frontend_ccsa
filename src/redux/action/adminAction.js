@@ -67,3 +67,60 @@ export const deleteLecture = (courseId,lectureId) => async(dispatch)=>{
         dispatch({type:"deleteLectureFail", payload:error.response.data.message})
     }
 }
+
+export const getAllUsers = () => async(dispatch)=>{
+    try {
+
+        dispatch({type:"getAllUsersRequest"});
+        const {data} = await axios.get(`${server}/admin/users`,{
+            withCredentials:true,
+        })
+        dispatch({type:"getAllUsersSuccess", payload:data.users})
+        
+    } catch (error) {
+        dispatch({type:"getAllUsersFail", payload:error.response.data.message})
+    }
+}
+
+export const changeRoleUser = (id) => async(dispatch)=>{
+    try {
+
+        dispatch({type:"changeRoleUserRequest"});
+        const {data} = await axios.put(`${server}/admin/user/${id}`,{},{
+            withCredentials:true,
+        })
+        dispatch({type:"changeRoleUserSuccess", payload:data.message})
+        
+    } catch (error) {
+        dispatch({type:"changeRoleUserFail", payload:error.response.data.message})
+    }
+}
+
+export const deleteUser = (id) => async(dispatch)=>{
+    try {
+
+        dispatch({type:"deleteUserRequest"});
+        const {data} = await axios.delete(`${server}/admin/user/${id}`,{
+            withCredentials:true,
+        })
+        dispatch({type:"deleteUserSuccess", payload:data.message})
+        
+    } catch (error) {
+        dispatch({type:"deleteUserFail", payload:error.response.data.message})
+    }
+}
+
+
+export const getAdminStats = () => async(dispatch)=>{
+    try {
+
+        dispatch({type:"getAdminStatsRequest"});
+        const {data} = await axios.get(`${server}/admin/stats`,{
+            withCredentials:true,
+        })
+        dispatch({type:"getAdminStatsSuccess", payload:data})
+        
+    } catch (error) {
+        dispatch({type:"getAdminStatsFail", payload:error.response.data.message})
+    }
+}

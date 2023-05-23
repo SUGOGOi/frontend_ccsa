@@ -24,10 +24,11 @@ const AdminCourse = () => {
     const [clear,setClear] = useState();
 
     const courseDetailHandler = (courseId,title) => {
+        setCourseId(courseId);
+        setCourseTitle(title)
         dispatch(getCourseLectures(courseId))
         onOpen();
-        setCourseId(courseId);
-        setCourseTitle(courseTitle)
+        
     }
     const deleteButtonhandler = async(courseId) => {
        await dispatch(deleteCourse(courseId));
@@ -66,7 +67,7 @@ const AdminCourse = () => {
     }
 
 
-    useEffect((courseId)=>{
+    useEffect(()=>{
         if(error){
             toast.error(error);
             dispatch({type:"clearError"});

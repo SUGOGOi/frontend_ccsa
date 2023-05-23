@@ -1,6 +1,30 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 export const adminReducer = new createReducer({},{
+
+    getAdminStatsRequest : state =>{
+        state.loading = true;
+    },
+    getAdminStatsSuccess : (state,action) =>{
+        state.loading = false;
+        state.stats = action.payload.stats;
+        state.usersCount = action.payload.usersCount;
+        state.subscriptionsCount = action.payload.subscriptionsCount;
+        state.viewsCount = action.payload.viewsCount;
+        state.usersPercentage = action.payload.usersPercentage;
+        state.viewsPercentage = action.payload.viewsPercentage;
+        state.subscriptionsPercentage = action.payload.subscriptionsPercentage;
+        state.usersProfit = action.payload.usersProfit;
+        state.viewsProfit = action.payload.viewsProfit;
+        state.subscriptionsProfit = action.payload.subscriptionsProfit;
+
+    },
+    getAdminStatsFail : (state,action) =>{
+        state.loading = false;
+        state.error = action.payload;
+    },
+
+
     createCourseRequest : state =>{
         state.loading = true;
     },
@@ -12,6 +36,45 @@ export const adminReducer = new createReducer({},{
         state.loading = false;
         state.error = action.payload;
     },
+
+
+    getAllUsersRequest : state =>{
+        state.loading = true;
+    },
+    getAllUsersSuccess : (state,action) =>{
+        state.loading = false;
+        state.users = action.payload;
+    },
+    getAllUsersFail : (state,action) =>{
+        state.loading = false;
+        state.error = action.payload;
+    },
+
+    changeRoleUserRequest : state =>{
+        state.loading = true;
+    },
+    changeRoleUserSuccess : (state,action) =>{
+        state.loading = false;
+        state.message = action.payload;
+    },
+    changeRoleUserFail : (state,action) =>{
+        state.loading = false;
+        state.error = action.payload;
+    },
+
+    deleteUserRequest : state =>{
+        state.loading = true;
+    },
+    deleteUserSuccess : (state,action) =>{
+        state.loading = false;
+        state.message = action.payload;
+    },
+    deleteUserFail : (state,action) =>{
+        state.loading = false;
+        state.error = action.payload;
+    },
+
+
 
 
     deleteCourseRequest : state =>{
