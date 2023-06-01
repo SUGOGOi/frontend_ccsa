@@ -23,9 +23,9 @@ const Contact = () => {
   const dispatch = useDispatch();
   const { loading, error, message } = useSelector(state => state.contact);
 
-  const contactSubmitHandler =(e) =>{
+  const contactSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(contactRequest(name,email,message1));
+    dispatch(contactRequest(name, email, message1));
   }
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Contact = () => {
     <Container h="90vh">
       <VStack h="full" justifyContent={'center'} spacing={'16'}>
         <Heading children="Contact Us" />
-        <form style={{ width: '100%' }}>
+        <form style={{ width: '100%' }} onSubmit={contactSubmitHandler} >
           <Box my={'4'}>
             <FormLabel htmlFor="name" children="Name" />
             <Input
@@ -90,7 +90,6 @@ const Contact = () => {
                 colorScheme={'yellow'}
                 variant="link"
                 isLoading={loading}
-                onClick={contactSubmitHandler}
               >
                 Click
               </Button>{' '}
