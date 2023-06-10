@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Heading, HStack, Input, Button, Text, Stack, VStack, Image } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,7 +9,7 @@ import { loaduser } from '../../redux/action/userAction';
 
 // import "../Home/Home.css"
 
-const Course = ({ views, title, imageSrc, id,loading, addToPlaylistHandler, creator, description, lectureCount }) => {
+const Course = ({ views, title, imageSrc, id, loading, addToPlaylistHandler, creator, description, lectureCount }) => {
 
     return (
 
@@ -26,7 +26,7 @@ const Course = ({ views, title, imageSrc, id,loading, addToPlaylistHandler, crea
             <Heading size="xs" children={`Views - ${views}`} texttransform={"uppercase"} />
             <Stack direction={["column", "row"]} alignItems="center">
                 <Link to={`/course/${id}`}>
-                    <Button  colorScheme={"yellow"}>Watch Now!</Button>
+                    <Button colorScheme={"yellow"}>Watch Now!</Button>
                 </Link>
                 <Button isLoading={loading} colorScheme={"yellow"} variant={"ghost"} onClick={() => addToPlaylistHandler(id)}>Add to Playlist</Button>
 
@@ -41,38 +41,38 @@ const Courses = () => {
 
     const [keyword, setkeyword] = useState("");
     const [category, setCategory] = useState("");
-    const {loading,courses,error,message} = useSelector(state => state.course)
+    const { loading, courses, error, message } = useSelector(state => state.course)
     const dispatch = useDispatch();
 
-    const addToPlaylistHandler = async(courseId) => {
+    const addToPlaylistHandler = async (courseId) => {
         // console.log("Added to playlist",courseId)
         await dispatch(addToPlaylist(courseId));
-        setTimeout(()=>{
+        setTimeout(() => {
             dispatch(loaduser());
-        },1500)
+        }, 1500)
     }
 
     const categories = [
         "Web dev", "Android Development", "Data Structures & Algorithems", "AI", "Data Science"
     ]
 
-    
-    useEffect(()=>{
-        dispatch(getAllCourses(category,keyword))
-        if(error){
+
+    useEffect(() => {
+        dispatch(getAllCourses(category, keyword))
+        if (error) {
             toast.error(error)
-            dispatch({type:"clearError"});
+            dispatch({ type: "clearError" });
         }
 
-        if(message){
+        if (message) {
             toast.success(message)
-            dispatch({type:"clearMessage"});
+            dispatch({ type: "clearMessage" });
         }
         // if(category != ""){
         //     setCategory("")
         // }
 
-    },[dispatch,category,keyword,error,message])
+    }, [dispatch, category, keyword, error, message])
 
 
     return (
@@ -99,23 +99,23 @@ const Courses = () => {
                 alignItems={["center", "flex-start"]}
             >
                 {
-                     
-                    courses.length > 0 ? courses.map((item)=>(
+
+                    courses.length > 0 ? courses.map((item) => (
                         <Course
-                        key={item._id}
-                        title={item.title}
-                        description={item.description}
-                        views={item.views}
-                        imageSrc={item.poster.url}
-                        id={item._id}
-                        creator={item.createdBy}
-                        lectureCount={item.numOfVideos}
-                        addToPlaylistHandler={addToPlaylistHandler}
-                        loading={loading}
-                    />  
-                    )) : <Heading mt="4" children={"Course not found"}/>
-                    
-                    
+                            key={item._id}
+                            title={item.title}
+                            description={item.description}
+                            views={item.views}
+                            imageSrc={item.poster.url}
+                            id={item._id}
+                            creator={item.createdBy}
+                            lectureCount={item.numOfVideos}
+                            addToPlaylistHandler={addToPlaylistHandler}
+                            loading={loading}
+                        />
+                    )) : <Heading mt="4" children={"Course not found"} />
+
+
                 }
 
             </Stack>

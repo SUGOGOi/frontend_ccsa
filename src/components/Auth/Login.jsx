@@ -11,14 +11,14 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch()
 
-    const submitHandler = (e) =>{
+    const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(login(email,password))
+        dispatch(login(email, password))
 
     }
     return <Container h={"95vh"}>
         <VStack h={"full"} justifyContent="center" spacing={"16"}>
-            <Heading children={"Welcome to CCSA"} />
+            <Heading children={"Login"} />
             <form style={{ width: "100%" }} onSubmit={submitHandler} >
                 <Box my={'4'}>
                     <FormLabel htmlFor="email" children="Email Address" />

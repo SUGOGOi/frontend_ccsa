@@ -7,7 +7,6 @@ import {
   Button,
   Textarea,
   VStack,
-  Toast,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -22,11 +21,22 @@ const Contact = () => {
   const [message1, setMessage1] = useState('');
   const dispatch = useDispatch();
   const { loading, error, message } = useSelector(state => state.contact);
-
-  const contactSubmitHandler = (e) => {
-    e.preventDefault();
-    dispatch(contactRequest(name, email, message1));
+  const clearForm = () => {
+    setName("");
+    setEmail("");
+    setMessage1("");
   }
+
+  const contactSubmitHandler = async (e) => {
+    e.preventDefault();
+    await dispatch(contactRequest(name, email, message1));
+    setTimeout(() => {
+      clearForm();
+
+    }, 1500)
+  }
+
+
 
   useEffect(() => {
     if (error) {
@@ -80,7 +90,7 @@ const Contact = () => {
             />
           </Box>
 
-          <Button my="4" colorScheme={'yellow'} type="submit">
+          <Button my="4" colorScheme={'yellow'} type="submit" isLoading={loading} >
             Send Mail
           </Button>
           <Box my="4">
@@ -89,7 +99,7 @@ const Contact = () => {
               <Button
                 colorScheme={'yellow'}
                 variant="link"
-                isLoading={loading}
+
               >
                 Click
               </Button>{' '}

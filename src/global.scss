@@ -1,0 +1,8 @@
+$mobileWith: 480px;
+
+
+@mixin mobile {
+    @media (max-width:$mobileWith) {
+        @content
+    }
+}

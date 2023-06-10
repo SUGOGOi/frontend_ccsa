@@ -1,10 +1,11 @@
 import React from 'react'
-import { ColorModeSwitcher } from "../../../ColorModeSwitcher"
 import { Button, Drawer, DrawerContent, DrawerOverlay, DrawerBody, DrawerHeader, useDisclosure, VStack, HStack } from '@chakra-ui/react'
 import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from "react-icons/ri"
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../../redux/action/userAction'
+import "./Header.scss"
+import { ColorModeSwitcher } from "../../../ColorModeSwitcher"
 
 
 
@@ -12,22 +13,22 @@ import { logout } from '../../../redux/action/userAction'
 
 
 
-const Header = ({isAuthenticated = false,user}) => {
+const Header = ({ isAuthenticated = false, user }) => {
 
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const dispatch = useDispatch();
-  
+
     const logoutHandler = () => {
         onClose()
         dispatch(logout())
     }
 
-    
+
 
     return (<>
-        <ColorModeSwitcher />
-        <Button onClick={onOpen} colorScheme={'yellow'} width="12" height="12" rounded="full" position="fixed" top="6" left="6">
+
+        <Button className='ccsa' onClick={onOpen} colorScheme={'yellow'} width="14" height="14" rounded="full" position="fixed" top="4" left="4">
             <RiMenu5Fill />
         </Button>
 
@@ -36,7 +37,7 @@ const Header = ({isAuthenticated = false,user}) => {
         <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
             <DrawerOverlay backdropFilter={"blur(2px)"} />
             <DrawerContent>
-                <DrawerHeader borderBottomWidth={"1px"}>CCSA</DrawerHeader>
+                <DrawerHeader borderBottomWidth={"1px"} color={'yellow.300'} >CCSA</DrawerHeader>
                 <DrawerBody>
                     <VStack spacing={"2"} alignItems="flex-start">
 
@@ -106,6 +107,7 @@ const Header = ({isAuthenticated = false,user}) => {
                 </DrawerBody>
             </DrawerContent>
         </Drawer>
+        <ColorModeSwitcher />
     </>)
 }
 

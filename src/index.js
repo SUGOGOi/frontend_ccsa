@@ -10,12 +10,12 @@ const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 root.render(
-  // <StrictMode>
-    <Provider store={store} >
-    <ChakraProvider theme={theme}>
-      <ColorModeScript />
-      <App />
-    </ChakraProvider>
+  <StrictMode>
+    <Provider store={store}>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript />
+        <App />
+      </ChakraProvider>
     </Provider>
-  // </StrictMode> //2 time request
+  </StrictMode> //2 time request
 );
