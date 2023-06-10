@@ -1,125 +1,152 @@
-@import "../../../global.scss";
+@import '../../../global.scss';
 
-.footer{
-    height:50vh;
-    width: 100%;
-    background-color: black;
-    padding: 15px;
+.footer {
+  height: 50vh;
+  width: 100%;
+  background-color: black;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+
+  @include mobile {
+    height: 100vh;
+  }
+}
+
+.footer-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  @include mobile {
+    flex-direction: column;
+  }
+
+  .footer-content {
+    width: 70%;
+    height: 45vh;
+    // border: 1px solid white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
 
     @include mobile {
-            height: 60vh;
-        }
-}
+      height: 55vh;
+      margin-bottom: 10px;
+    }
 
-.footer-body{
-    display: flex;
-        flex-direction: row;
-        justify-content: center;
+    // align-items: flex-start;
+    .heading {
+      padding: 10px;
+      h3 {
+        color: yellow;
+        font-size: 30px;
+        font-weight: bold;
+        font-family: Verdana;
+      }
+      @include mobile {
+        text-align: center;
+      }
+    }
+    .details {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      color: white;
+
+      @include mobile {
+        flex-direction: column;
+      }
+      p {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .categories {
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        width: 100%;
-        .footer-content{
-            width: 70%;
-            height: 45vh;
-            // border: 1px solid white;
-            display: flex;
-            flex-direction: column;
-            
-            // align-items: flex-start;
-            .heading{
-                padding: 10px;
-                h3 {
-                        color: yellow;
-                        font-size: 30px;
-                        font-weight: bold;
-                        font-family: Verdana;
-                    }
-            }
-            .details{
-                margin-top: 15px;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                color: white;
-                p{
-                    font-size: 20px;
-                    font-weight: bold;
-                }
-                .categories{
-                    
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    a{
-                        font-size: 15px;
-                        &:hover {
-                                text-decoration: underline;
-                            }
-                        
-                    }
-                }
-                .subscription-plans{
-                    display: flex;
-                        flex-direction: column;
-                    display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        a {
-                                font-size: 15px;
-                                &:hover {
-                                        text-decoration: underline;
-                                    }
-                            }
 
-                }
-                .center{
-                    display: flex;
-                    flex-direction: column;
-                    display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        a {
-                                font-size: 15px;
-                                &:hover{
-                                    text-decoration: underline;
-                                }
-                            }
-                }
-
-               
-            }
+        @include mobile {
+          margin: 10px;
         }
-        
-        .footer-content-2{
-            width: 30%;
-            height: 45vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            // border: 1px solid white;
-            .icons{
-                display: flex;
-                justify-content: space-evenly;
-                // border: 1px solid white;
-                width: 100%;
-                a{
-                    font-size: 30px;
-                }
-
-            }
+        a {
+          font-size: 15px;
+          &:hover {
+            text-decoration: underline;
+          }
         }
+      }
+      .subscription-plans {
+        display: flex;
+        flex-direction: column;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include mobile {
+          margin: 10px;
+        }
+        a {
+          font-size: 15px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      .center {
+        display: flex;
+        flex-direction: column;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include mobile {
+          margin: 10px;
+        }
+        a {
+          font-size: 15px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
 
+  .footer-content-2 {
+    width: 30%;
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    // border: 1px solid white;
+    color: white;
+    @include mobile {
+      width: 70%;
+      height: 30vh;
+    }
+    .icons {
+      display: flex;
+      justify-content: space-evenly;
+      // border: 1px solid white;
+      width: 100%;
+      a {
+        font-size: 25px;
+      }
+    }
+
+    .footer-content-2-down {
+      width: 100%;
+      //   border: 1px solid white;
+      text-align: center;
+    }
+  }
 }
 
-#footer-copy{
-    color: yellow;
-   
+#footer-copy {
+  color: yellow;
 }
-
-
-

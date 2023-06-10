@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Heading, HStack, Input, Button, Text, Stack, VStack, Image } from "@chakra-ui/react"
+import { Container, Heading, HStack, Input, Button, Text, Stack, VStack, Image, Center } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCourses } from '../../redux/action/courseAction'
@@ -76,8 +76,8 @@ const Courses = () => {
 
 
     return (
-        <Container minH={"95vh"} maxW="container.lg" paddingY={"8"}>
-            <Heading margin={"8"} >All Courses</Heading>
+        <Container minH={"105vh"} maxW="container.lg" paddingY={"7"}>
+            <Heading margin={"8"}  >All Courses</Heading>
             <Input value={keyword} onChange={e => setkeyword(e.target.value)} placeholder="Search a course" type={"text"}
                 focusBorderColor="yellow.500"
             />

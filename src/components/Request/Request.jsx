@@ -40,7 +40,7 @@ const Request = () => {
         }
     }, [dispatch, error, message]);
 
-    return <Container h="90vh" >
+    return <Container h="100vh" >
         <VStack h="full" justifyContent={"center"} spacing={"16"}>
             <Heading children="Request New Course" />
             <form style={{ width: "100%" }} onSubmit={requestCourseHandler} >

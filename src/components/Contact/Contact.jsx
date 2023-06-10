@@ -50,7 +50,7 @@ const Contact = () => {
   }, [dispatch, error, message]);
 
   return (
-    <Container h="90vh">
+    <Container h="100vh">
       <VStack h="full" justifyContent={'center'} spacing={'16'}>
         <Heading children="Contact Us" />
         <form style={{ width: '100%' }} onSubmit={contactSubmitHandler} >
