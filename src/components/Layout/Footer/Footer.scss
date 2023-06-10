@@ -12,7 +12,7 @@
   font-family: sans-serif;
 
   @include mobile {
-    height: 100vh;
+    height: 70vh;
   }
 }
 
@@ -35,7 +35,7 @@
     flex-direction: column;
 
     @include mobile {
-      height: 55vh;
+      height: 50vh;
       margin-bottom: 10px;
     }
 
@@ -127,7 +127,7 @@
     color: white;
     @include mobile {
       width: 70%;
-      height: 30vh;
+      height: 13vh;
     }
     .icons {
       display: flex;
