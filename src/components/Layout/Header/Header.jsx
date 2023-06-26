@@ -48,12 +48,12 @@ const Header = ({ isAuthenticated = false, user }) => {
                         <Link to={"/courses"} onClick={onClose}>
                             <Button varient={'ghost'}>{"All Courses"}</Button>
                         </Link>
-                        <Link to={"/notes"} onClick={onClose}>
+                        {/* <Link to={"/notes"} onClick={onClose}>
                             <Button varient={'ghost'}>{"Notes"}</Button>
                         </Link>
                         <Link to={"/jobs"} onClick={onClose}>
                             <Button varient={'ghost'}>{"Jobs"}</Button>
-                        </Link>
+                        </Link> */}
                         <Link to={"/request"} onClick={onClose}>
                             <Button varient={'ghost'}>{"Request a Course"}</Button>
                         </Link>

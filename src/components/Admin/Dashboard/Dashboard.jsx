@@ -29,7 +29,7 @@ const Databox = ({ title, qty, qtyPercentage, profit }) => (
     <HStack spacing={'6'}>
       <Text fontSize={'2xl'} fontWeight={'bold'} children={qty} />
       <HStack>
-        <Text children={`${qtyPercentage}%`} />
+        {/* <Text children={`${qtyPercentage}%`} /> */}
         {profit ? (
           <RiArrowUpLine color="green" />
         ) : (
@@ -88,82 +88,79 @@ const Dashboard = () => {
       templateColumns={['1fr', '5fr 1fr']}
     >
       {
-        loading || !stats ? <Loader  color="purple.500" />:(<Box boxSizing="border-box" px={['4', '0']} py="16">
-        <Text
-          textAlign={'center'}
-          opacity={0.5}
-          children={`Last change was on ${String(new Date(stats[11].createdAt)).split('G')[0]}`}
-        ></Text>
-        <Heading
-          children="Dashboard"
-          ml={['0', '16']}
-          mb="16"
-          textAlign={['center', 'left']}
-        />
-        <Stack
-          direction={['column', 'row']}
-          minH="24"
-          justifyContent={'space-evenly'}
-        >
-          <Databox
-            title="Views"
-            qty={viewsCount}
-            qtyPercentage={viewsPercentage}
-            profit={viewsProfit}
-          />
-          <Databox
-            title="Users"
-            qty={usersCount}
-            qtyPercentage={usersPercentage}
-            profit={usersProfit}
-          />
-          <Databox
-            title="Subscription"
-            qty={subscriptionsCount}
-            qtyPercentage={subscriptionsPercentage}
-            profit={subscriptionsProfit}
-          />
-        </Stack>
-        <Box
-          m={['0', '16']}
-          borderRadius="lg"
-          p={['0', '16']}
-          mt={['4', '16']}
-          boxShadow={['-2px 0 10px rgba(107,70,193,0.5)']}
-        >
+        loading || !stats ? <Loader color="purple.500" /> : (<Box boxSizing="border-box" px={['4', '0']} py="16">
+          <Text
+            textAlign={'center'}
+            opacity={0.5}
+            children={`Last change was on ${String(new Date(stats[11].createdAt)).split('G')[0]}`}
+          ></Text>
           <Heading
-            textAlign={['center', 'left']}
-            size="md"
-            children="Views Graph"
-            pt={['8', '0']}
+            children="Dashboard"
             ml={['0', '16']}
+            mb="16"
+            textAlign={['center', 'left']}
           />
-
-          <LineChart views={stats.map(item=>item.views)} />
-        </Box>
-
-        <Grid templateColumns={['1fr', '2fr 1fr']}>
-          <Box p="4">
+          <Stack
+            direction={['column', 'row']}
+            minH="24"
+            justifyContent={'space-evenly'}
+          >
+            <Databox
+              title="Views"
+              qty={viewsCount}
+              profit={viewsProfit}
+            />
+            <Databox
+              title="Users"
+              qty={usersCount}
+              profit={usersProfit}
+            />
+            <Databox
+              title="Subscription"
+              qty={subscriptionsCount}
+              profit={subscriptionsProfit}
+            />
+          </Stack>
+          <Box
+            m={['0', '16']}
+            borderRadius="lg"
+            p={['0', '16']}
+            mt={['4', '16']}
+            boxShadow={['-2px 0 10px rgba(107,70,193,0.5)']}
+          >
             <Heading
               textAlign={['center', 'left']}
               size="md"
-              children="Progress Bar"
-              my="8"
+              children="Views Graph"
+              pt={['8', '0']}
               ml={['0', '16']}
             />
-            <Box>
-              <Bar profit={true} title="Views" value={viewsPercentage} />
-              <Bar profit={true} title="Users" value={usersPercentage} />
-              <Bar profit={false} title="Subscription" value={subscriptionsPercentage} />
-            </Box>
+
+            <LineChart views={stats.map(item => item.views)} />
           </Box>
 
-          <Box p={['0', '16']} boxSizing="border-box" py="4">
-            <Heading textAlign={'center'} size="md" mb="4" children="Users" />
-            <DoughnutChart users={[subscriptionsCount,usersCount-subscriptionsCount]} />
-          </Box>
-        </Grid>
-      </Box>)
+          <Grid templateColumns={['1fr', '2fr 1fr']}>
+            <Box p="4">
+              <Heading
+                textAlign={['center', 'left']}
+                size="md"
+                children="Progress Bar"
+                my="8"
+                ml={['0', '16']}
+              />
+              <Box>
+                <Bar profit={true} title="Views" value={viewsPercentage} />
+                <Bar profit={true} title="Users" value={usersPercentage} />
+                <Bar profit={false} title="Subscription" value={subscriptionsPercentage} />
+              </Box>
+            </Box>
+
+            <Box p={['0', '16']} boxSizing="border-box" py="4">
+              <Heading textAlign={'center'} size="md" mb="4" children="Users" />
+              <DoughnutChart users={[subscriptionsCount, usersCount - subscriptionsCount]} />
+            </Box>
+          </Grid>
+        </Box>)
       }
       <Sidebar />
     </Grid>

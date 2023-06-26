@@ -8,63 +8,63 @@ import { toast } from 'react-hot-toast'
 import logo from "../../assets/ccsa-logo.png"
 import { useNavigate } from 'react-router-dom'
 
-const Subscribe = ({user}) => {
-    const {subscriptionId,error,loading} = useSelector(state=>state.subscription)
-    const {error: subscribeError} = useSelector(state =>state.course)
-    const [key,setKey] = useState("")
+const Subscribe = ({ user }) => {
+    const { subscriptionId, error, loading } = useSelector(state => state.subscription)
+    const { error: subscribeError } = useSelector(state => state.course)
+    const [key, setKey] = useState("")
     const dispatch = useDispatch();
 
-    const subscriptionHandler = async() =>{
+    const subscriptionHandler = async () => {
 
-        const {data} = await axios.get(`${server}/razorpaykey`)
+        const { data } = await axios.get(`${server}/razorpaykey`)
         setKey(data.key)
         await dispatch(buySubscription());
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(error){
+        if (error) {
             toast.error(error);
-            dispatch({type:"clearError"})
+            dispatch({ type: "clearError" })
         }
 
-        if(subscribeError){
+        if (subscribeError) {
             toast.error(subscribeError);
-            dispatch({type:"clearError"})
+            dispatch({ type: "clearError" })
         }
-        
-        if(subscriptionId){
-            const openPopUp = () =>{
+
+        if (subscriptionId) {
+            const openPopUp = () => {
                 const options = {
                     key,
-                    name:"CCSA",
-                    description:"Get access to all premium content",
-                    image:logo,
-                    subscription_id:subscriptionId,
-                    callback_url:`${server}/paymentverification`,
-                    prefill:{
-                        name:user.name,
-                        email:user.email,
-                        contact:""
+                    name: "CCSA",
+                    description: "Get access to all premium content",
+                    image: logo,
+                    subscription_id: subscriptionId,
+                    callback_url: `${server}/paymentverification`,
+                    prefill: {
+                        name: user.name,
+                        email: user.email,
+                        contact: ""
                     },
-                    notes:{
-                        address:"Dibrugarh University"
+                    notes: {
+                        address: "Dibrugarh University"
                     },
-                    theme:{
-                        color:"#FFC800"
+                    theme: {
+                        color: "#FFC800"
                     }
 
 
                 }
 
-                const razor  =  new window.Razorpay(options);
+                const razor = new window.Razorpay(options);
                 razor.open();
             };
             openPopUp();
         }
-    },[dispatch,error,user.name,user.email,key,subscriptionId,subscribeError])
+    }, [dispatch, error, user.name, user.email, key, subscriptionId, subscribeError])
 
-    return <Container h="90vh" padding="16"  >
+    return <Container h="100vh" padding="16"  >
         <Heading children="Subscribe" m="8" textAlign={"center"} />
         <VStack boxShadow={"lg"} alignItems="stretch" borderRadius={"lg"} spacing="0" >
             <Box bg="yellow.400" p={"4"} css={{ borderRadius: "8px 8px 0 0" }}>
@@ -75,7 +75,7 @@ const Subscribe = ({user}) => {
                     <Text children={`Join Pro Pack and get access to all content`} />
                     <Heading children={"₹299 Only"} size="md" />
                 </VStack>
-                <Button  isLoading={loading} onClick={subscriptionHandler} my="8" w="full" colorScheme={"yellow"} >Buy Now</Button>
+                <Button isLoading={loading} onClick={subscriptionHandler} my="8" w="full" colorScheme={"yellow"} >Buy Now</Button>
             </Box>
             <Box bg="blackAlpha.600" p="4" css={{ borderRadius: "0 0 8px 8px" }} >
                 <Heading color={"white"} textTransform="uppercase" children={"100% refund at cancellation"} size="sm" />

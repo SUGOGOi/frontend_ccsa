@@ -38,14 +38,14 @@ const Register = () => {
 
     const myForm = new FormData();
 
-    const submitHandler =(e)=>{
+    const submitHandler = (e) => {
         e.preventDefault();
-        
-        myForm.append("name",name)
-        myForm.append("email",email)
-        myForm.append("password",password)
- 
-        myForm.append("file",image)
+
+        myForm.append("name", name)
+        myForm.append("email", email)
+        myForm.append("password", password)
+
+        myForm.append("file", image)
 
         dispatch(register(myForm));
     }
@@ -53,17 +53,17 @@ const Register = () => {
     return <Container h={"110vh"} >
         <VStack h={"full"} justifyContent="center" spacing={"10"}>
             <Heading children={"Registration"} textTransform={"uppercase"} />
-            <form style={{ width: "100%" }} onSubmit={submitHandler}  method='POST' >
+            <form style={{ width: "100%" }} onSubmit={submitHandler} method='POST' >
                 <Box display={'flex'} justifyContent={"center"}>
                     <Avatar size={'xl'} src={imagePrev} />
 
                 </Box>
                 <Box my={'2'}>
                     <FormLabel htmlFor="name" children="Name" />
-                    <Input required id="name" value={name} 
-                    onChange={(e) => setName(e.target.value)} 
-                    placeholder={"example"} type={"text"} 
-                    focusBorderColor="yellow.500" />
+                    <Input required id="name" value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder={"example"} type={"text"}
+                        focusBorderColor="yellow.500" />
                 </Box>
                 <Box my={'2'}>
                     <FormLabel htmlFor="email" children="Email Address" />
@@ -79,7 +79,7 @@ const Register = () => {
                         accept='image/*' required id="chooseAvatar" type={"file"} focusBorderColor="yellow.500"
                         onChange={changeImageHandler} name='File' />
                 </Box>
-               
+
 
                 <Button my="2" colorScheme={"yellow"} type="submit">Sign Up</Button>
                 <Box my="2" >

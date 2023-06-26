@@ -30,7 +30,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { loaduser } from './redux/action/userAction';
 import { ProtectedRoute } from 'protected-route-react';
 import Loader from './components/Layout/Loader/Loader';
-import HomeU from './components/HomeU/HomeU';
 
 function App() {
   // window.addEventListener('contextmenu', e => {

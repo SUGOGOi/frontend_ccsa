@@ -30,13 +30,13 @@ const Users = () => {
   } = useSelector(state => state.admin);
 
   const updateHandler = userId => {
-    
+
     dispatch(changeRoleUser(userId))
   };
 
   const deleteButtonHandler = userId => {
     dispatch(deleteUser(userId))
-    
+
   };
 
   useEffect(() => {
@@ -97,10 +97,10 @@ const Users = () => {
 
 export default Users;
 
-function Row({ item, updateHandler, deleteButtonHandler ,loading}) {
+function Row({ item, updateHandler, deleteButtonHandler, loading }) {
   return (
     <Tr>
-      <Td>#{item._id}</Td>
+      <Td>{item._id}</Td>
       <Td>{item.name}</Td>
       <Td>{item.email}</Td>
       <Td>{item.role}</Td>
@@ -116,14 +116,14 @@ function Row({ item, updateHandler, deleteButtonHandler ,loading}) {
         )}
       </Td>
       <Td isNumeric>
-        <Button
+        {/* <Button
           varient={'outline'}
           color={'purple.500'}
           onClick={() => updateHandler(item._id)}
           isLoading={loading}
         >
           Change Role
-        </Button>
+        </Button> */}
         <Button color={'red'} onClick={() => deleteButtonHandler(item._id)} isLoading={loading} >
           <RiDeleteBin7Fill />{' '}
         </Button>

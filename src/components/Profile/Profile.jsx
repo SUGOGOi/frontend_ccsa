@@ -25,54 +25,54 @@ import { fileUploadCss } from '../Auth/Register'
 import { updateProfilePicture } from '../../redux/action/profileAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { loaduser } from '../../redux/action/userAction'
-import toast,{Toaster} from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
 import { removeFromPlaylist } from '../../redux/action/profileAction'
 
 
-const Profile = ({user}) => {
+const Profile = ({ user }) => {
 
     const dispatch = useDispatch();
-    const {loading,error,message} = useSelector(state => state.profile);
+    const { loading, error, message } = useSelector(state => state.profile);
     const navigate = useNavigate();
 
-    const removeFromPlaylistHandler = async(id) => {
+    const removeFromPlaylistHandler = async (id) => {
         await dispatch(removeFromPlaylist(id));
 
-        setTimeout(()=>{
+        setTimeout(() => {
             dispatch(loaduser());
-        },1500)
+        }, 1500)
     }
 
-    const changeImageSubmitHandler = async(e, image) => {
+    const changeImageSubmitHandler = async (e, image) => {
         e.preventDefault();
         console.log("enter")
-        
+
         const myForm = new FormData();
 
-        myForm.append("file",image);
+        myForm.append("file", image);
         await dispatch(updateProfilePicture(myForm));
 
-        setTimeout(()=>{
+        setTimeout(() => {
             dispatch(loaduser())
-        },3000)
-        
+        }, 3000)
+
     }
 
-    useEffect(()=>{
-        if(error){
+    useEffect(() => {
+        if (error) {
             toast.error(error);
-            dispatch({type:"clearError"})
+            dispatch({ type: "clearError" })
         }
 
-        if(message){
+        if (message) {
             toast.success(message);
-            dispatch({type:"clearMessage"})
+            dispatch({ type: "clearMessage" })
         }
-        })
+    })
 
     const { isOpen, onClose, onOpen } = useDisclosure()
 
-    return <Container minH={"95vh"} maxW={"container.lg"} py="8" >
+    return <Container minH={"100vh"} maxW={"container.lg"} py="8" >
 
         <Heading children="Profile" m="8" textTransform={"uppercase"} />
         <Stack
@@ -166,8 +166,8 @@ function ChangePhotoBox({ isOpen, onClose, changeImageSubmitHandler }) {
     const [imagePrev, setImagePrev] = useState("");
     const [image, setImage] = useState("");
 
-    const {loading} = useSelector(state => state.profile);
-   
+    const { loading } = useSelector(state => state.profile);
+
 
     const changeImage = e => {
         const file = e.target.files[0];
