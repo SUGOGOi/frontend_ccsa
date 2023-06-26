@@ -120,6 +120,7 @@
     width: 30%;
     height: 45vh;
     display: flex;
+    margin: 60px 0 20px 0;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
@@ -141,9 +142,8 @@
 
     .footer-content-2-down {
       width: 100%;
-      //   border: 1px solid white;
+      // border: 1px solid white;
       text-align: center;
-      margin: 10px 0;
     }
   }
 }
