@@ -15,6 +15,7 @@ const Footer = () => {
                     <h3>
                         CCSA
                     </h3>
+
                 </div>
                 <div className="details">
                     <div className="categories">
